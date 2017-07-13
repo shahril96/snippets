@@ -1,0 +1,1 @@
+javascript: [].forEach.call(document.querySelectorAll('.torrent'), function (el) { el.style.display = 'block'; });

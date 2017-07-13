@@ -1,0 +1,25 @@
+# Don't display the copyright page
+startup_message off
+
+# change default key binding to ctrl+b
+escape ^Bb
+
+# enable 256-bit color instead of default 8-bit colors
+term screen-256color
+
+hardstatus alwayslastline
+hardstatus string '%{= gk}%{kg}[ %{G}%H %{g}][%= %{wk}%?%-Lw%?%{=b kR} (%{W}%n*%f %t%?(%u)%?%{=b kR})%{= kw}%?%+Lw%?%?%= %{g}][%{Y}%l%{g}] %{=b C}[ %M %d %c ]%{W}'
+
+# easy move from one region to anothers
+bind k focus up
+bind l focus right
+bind j focus down
+bind h focus left
+
+# easy resize using '=' (automatic resize), '+' add size, '-' minus size
+bind = resize =
+bind + resize +3
+bind - resize -3
+
+# enable mouse scrolling
+termcapinfo xterm* ti@:te@

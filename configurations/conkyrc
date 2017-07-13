@@ -1,0 +1,161 @@
+#========================================================================
+# Conky-Serdar
+#----------------------------------------------------------------------
+#sudo apt-get install conky
+#extract the zip file and move files to .conky in your home folder
+#----------------------------------------------------------------------
+#Run(Terminal): 
+# conky -c ~/.conky/conkyrc
+#----------------------------------------------------------------------
+#Autostart(Openbox):
+# sudo leafpad .config/openbox/autostart
+#add these lines below for autostart (without first #)
+# # System Info
+# conky -c ~/.conky/conkyrc &
+#----------------------------------------------------------------------
+#Autostart(Ubuntu/Gnome): create conky-startup.sh paste below (without first #)
+# #!/bin/bash
+# conky -c ~/.conky/conkyrc ;
+#alt+F2 type gnome-session-properties add line below to your startup section
+# .conky/conky-startup.sh
+#
+#	Gnome 14 and later
+#
+#	cp ~/.conky/conky.desktop /usr/share/gnome/autostart/
+#
+#	or
+#
+#	gedit /usr/share/gnome/autostart/conky.desktop
+#	addlines below;
+#
+##	#conky.desktop
+##	[Desktop Entry]
+##	Type=Application
+##	Name=Conky
+##	Comment=Start conky script
+##	Exec=.conky/conky-startup.sh
+##	OnlyShowIn=GNOME;
+##	X-GNOME-Autostart-Phase=Application
+#----------------------------------------------------------------------
+#Autostart(LXDE)
+# sudo leafpad  /etc/xdg/lxsession/LXDE/autostart
+#add (without first #)
+# @conky -c ~/.conky/conkyrc
+#----------------------------------------------------------------------
+# Disable a section, add "#" beginning of the line
+#----------------------------------------------------------------------
+# For quad/dual core processors add/remove "#" beginning of the core2,3,4
+#
+# CPU Info: cat /proc/cpuinfo
+#----------------------------------------------------------------------
+# Battery Info: ls /proc/acpi/battery > cat /proc/acpi/battery/****/info
+# For battery info add/remove "#" beginning of the battery line
+#----------------------------------------------------------------------
+# alignment b=bottom t=top l=left r=right
+#----------------------------------------------------------------------
+# Nvidia gpu temp: apt-get install nvidia-settings
+#
+#========================================================================
+
+background yes
+update_interval 1
+total_run_times 0
+
+cpu_avg_samples 2
+net_avg_samples 2
+temperature_unit celsius
+
+double_buffer yes
+no_buffers yes
+text_buffer_size 2048
+
+gap_x 05
+gap_y 40
+minimum_size 190 325
+maximum_width 325
+own_window yes
+own_window_type override
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+border_inner_margin 0
+border_outer_margin 0
+alignment tr
+
+draw_shades yes
+draw_outline yes
+draw_borders no
+draw_graph_borders yes
+
+override_utf8_locale yes
+use_xft yes
+xftfont caviar dreams:size=8
+xftalpha 0.5
+uppercase no
+
+default_color DeepSkyBlue
+color1 Orange
+color2 Green
+color3 Red
+color4 Yellow
+color5 DDDDDD
+color6 AAAAAA
+color7 888888
+color8 666666
+
+TEXT
+
+${color1}${font :Bold:size=14} $alignc ${time %H}:${time %M}
+${color}${font :Bold:size=14} $alignc ${time %h} ${time %e} - ${time %Y}${font :Bold:size=08} 
+$alignc(${time %A})
+${color8}$alignc Uptime: $uptime
+${color8}${hr 2} 
+${color8}$alignc ${pre_exec lsb_release -d | cut -f 2| tr "[:upper:]" "[:lower:]"}${color8}$alignc $sysname $kernel
+${color8}$alignc ${execi 1000 cat /proc/cpuinfo | grep 'model name' | sed -e 's/model name.*: //'| uniq}
+${color8}${hr 2}
+${color4}CPU $alignr${color6}CPU: ${color1}${hwmon 0 temp 1}°C ${color6}GPU: ${color1}${execi 60 nvidia-settings -t -q GPUCoreTemp}°C 
+${color}${cpubar 8,325}:${color5}$cpu%
+${color7}Core1: ${color}${cpubar cpu1 7,80} ${color7}${cpu cpu1}% $alignr${color7}${cpu cpu2}%${color}${cpubar cpu2 7,80}${color7} :Core2
+${color7}Core3: ${color}${cpubar cpu3 7,80} ${color7}${cpu cpu3}% $alignr${color7}${cpu cpu4}%${color}${cpubar cpu4 7,80}${color7} :Core4
+${color}${cpugraph 15,}
+${color5}Process Name ${color5}$alignr CPU% MEM%
+${color6}${top name 1}$alignr${top cpu 1}   ${top mem 1}
+${color7}${top name 2}$alignr${top cpu 2}   ${top mem 2}
+${color8}${top name 3}$alignr${top cpu 3}   ${top mem 3}
+${color8}${top name 4}$alignr${top cpu 4}   ${top mem 4}
+
+${color4}Memory
+${color6}RAM : ${color5}($memmax)${alignr}${color6}$mem${color}${membar 8,75}
+${color6}SWAP: ${color5}($swapmax)${alignr}${color6}$swap${color}${swapbar 8,75}
+
+${color8}${hr 4}
+
+${color4}HDD
+${color5}Linux:${color1}(${fs_type})${alignr}${color7}${fs_used /}  <  >  ${color7}${fs_free /}
+${color8}Total: ${fs_size /}${alignr}${color}${fs_bar 8,150}
+
+${color5}Windows:${color1}(${fs_type /run/media/Windows})${alignr}${color7}${fs_used /run/media/Windows}  <  >  ${color7}${fs_free /run/media/Windows}
+${color8}Total: ${fs_size /run/media/Windows}${alignr}${color}${fs_bar 8,150 /run/media/Windows}
+
+${color5}Extra:${color1}(${fs_type /run/media/Extra})${alignr}${color7}${fs_used /run/media/Extra}  <  >  ${color7}${fs_free /run/media/Extra}
+${color8}Total: ${fs_size /run/media/Extra}${alignr}${color}${fs_bar 8,150 /run/media/Extra}
+
+${color7}HDD Read-> ${alignc}${color2}${diskio_read}/s ${alignr}${color3}${diskio_write}/s ${color7}<-HDD Write
+${color2}${diskiograph_read 8,150} ${alignr}${color3}${diskiograph_write 8,150}${color}
+
+${color8}${hr 4}
+
+${color4}Lan${color} ${alignr}${color7}IP: ${addr eth0}
+${color7}Download: ${color2}${downspeed eth0} k/s ${alignr} $alignr${color7}Upload: ${color3} ${upspeed eth0} k/s
+${color2}${downspeedgraph eth0 8,150} ${alignr}${color3}${upspeedgraph eth0 8,150}
+${color7}Total:${color2}${totaldown eth0} ${alignr}${color7}Total:${color3}${totalup eth0}
+
+${color4}Wifi${alignr}${color7}IP: ${addr wlan0}
+${color7}ESSID:${color1}${wireless_essid wlan0} ${color7}Rate:${color1}${wireless_bitrate wlan0} ${alignr}${color7}Quality:${color1}${wireless_link_qual_perc wlan0}%${color}${wireless_link_bar 8,75 wlan0}
+${color7}Download: ${color2}${downspeed wlan0}KB/s ${color3} $alignr${color7}Upload: ${alignr}${color3}${upspeed wlan0}KB/s
+${color2}${downspeedgraph wlan0 8,150} ${alignr}${color3}${upspeedgraph wlan0 8,150}
+${color7}Total:${color2}${totaldown wlan0} ${alignr}${color7}Total:${color3}${totalup wlan0}
+
+${color8}${hr 4}
+
+${color4}Battery${color1}${alignr}${battery_percent BAT1}
+${color}${battery_bar BAT1  8,}
