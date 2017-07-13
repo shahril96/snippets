@@ -1,6 +1,6 @@
 # snippets
 Various of my own code snippets. <br> <br>
-Previously I used Github's Gist to main my snippets.
+Previously I used Github's Gist as my main place to store snippets.<br>
 But seeing hard to maintain for the long-run, I've decided to move it all here.
 
 Folders
