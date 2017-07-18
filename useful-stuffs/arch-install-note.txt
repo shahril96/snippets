@@ -154,5 +154,5 @@
     -> ./install 
 
 13) install goodies
-    -> pacaur -S qt4 vlc visual-studio-code google-chrome steam wps-office pulseaudio pavucontrol
+    -> pacaur -S qt4 vlc visual-studio-code google-chrome steam wps-office pulseaudio pavucontrol rsync wine pinta tmux 
 
