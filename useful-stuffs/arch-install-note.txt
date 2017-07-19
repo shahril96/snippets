@@ -137,14 +137,21 @@
         -> pacaur -S virtualbox-ext-oracle
 
 11) install numix (awesome theme)
-    -> pacaur -S numix-icon-theme-git numix-gtk-theme-git
+    -> pacaur -S numix-circle-icon-theme-git numix-gtk-theme-git
     -> OPEN TWEAK-TOOL AND CHOOSE NUMIX
 
 12) install bumblebee + nvidia driver
-    -> pacman -S bumblebee nvidia lib32-virtualgl lib32-nvidia-utils mesa xf86-video-intel primus nvidia-settings opencl-nvidia lib32-primus
+    -> pacman -S bumblebee nvidia lib32-virtualgl lib32-nvidia-utils mesa xf86-video-intel primus nvidia-settings opencl-nvidia lib32-primus mesa-demos lib32-mesa-demos
+    -> systemctl enable bumblebeed
     -> ADD USER TO BUMBLEBEE GROUP
       -> gpasswd -a <user> bumblebee
     -> reboot
+
+13) install my .dotfiles!
+    -> mkdir -p ~/git && cd ~/git 
+    -> git clone https://github.com/shahril96/dotfiles.git
+    -> cd dotfiles 
+    -> ./install 
 
 13) install goodies
     -> pacaur -S qt4 vlc visual-studio-code google-chrome steam wps-office pulseaudio pavucontrol
