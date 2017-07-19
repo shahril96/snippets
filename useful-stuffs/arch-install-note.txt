@@ -61,9 +61,9 @@
 
 12) install & configure GRUB with its related-files
     -> pacman -S grub os-prober dosfstools efibootmgr
-    -> grub-install --recheck --debug
+    -> grub-install --recheck --debug (install GRUB EFI image)
     -> efibootmgr -v  (check EFI entries)
-    -> grub-mkconfig -o /boot/grub/grub.cfg
+    -> grub-mkconfig -o /boot/grub/grub.cfg (automatically create GRUB's config + OS detection)
 
 13) exit CHROOT & reboot 
     -> exit 
@@ -112,6 +112,8 @@
 6) install Xorg & Gnome
     -> pacaur -S xorg xorg-server xorg-apps gnome gnome-extra chrome-gnome-shell-git 
     -> systemctl enable gdm  (enable initial login menu)
+    -> EDIT /etc/gdm/custom.conf AND UNCOMMENT 'WaylandEnable=false'
+        -> REASON: some games work poorly with WAYLAND (for now)
     -> reboot
 
 7) enable multilib
@@ -120,39 +122,42 @@
         Include = /etc/pacman.d/mirrorlist
     -> pacman -Syu
 
-8) install intel's microcode
+8) enable support for another File Systems
+    -> pacman -S ntfs-3g exfat-utils btrfs-progs 
+
+9) install intel's microcode
     -> pacman -S intel-ucode
     -> REGENERATE GRUB.CONF FOR ENABLING MICROCODE ON BOOT-TIME
         -> grub-mkconfig -o /boot/grub/grub.cfg
 
-9) install good-looking fonts
+10) install good-looking fonts
     -> pacaur -S ttf-dejavu ttf-ms-fonts ttf-freefont freetype2 fontconfig
     -> echo 'export FREETYPE_PROPERTIES="truetype:interpreter-version=38"' >> /etc/profile.d/freetype2.sh
 
-10) install virtualbox
+11) install virtualbox
     -> pacman -S virtualbox virtualbox-guest-iso virtualbox-guest-utils
     -> ADD <USER> INTO 'vboxusers' TO ENABLE USB ACCESS
         -> gpasswd -a <user> vboxusers
     -> INSTALL EXTENSION PACK FOR USB 3.0, ETC
         -> pacaur -S virtualbox-ext-oracle
 
-11) install numix (awesome theme)
+12) install numix (awesome theme)
     -> pacaur -S numix-circle-icon-theme-git numix-gtk-theme-git
     -> OPEN TWEAK-TOOL AND CHOOSE NUMIX
 
-12) install bumblebee + nvidia driver
+13) install bumblebee + nvidia driver
     -> pacman -S bumblebee nvidia lib32-virtualgl lib32-nvidia-utils mesa xf86-video-intel primus nvidia-settings opencl-nvidia lib32-primus mesa-demos lib32-mesa-demos
     -> systemctl enable bumblebeed
     -> ADD USER TO BUMBLEBEE GROUP
       -> gpasswd -a <user> bumblebee
     -> reboot
 
-13) install my .dotfiles!
+14) install my .dotfiles!
     -> mkdir -p ~/git && cd ~/git 
     -> git clone https://github.com/shahril96/dotfiles.git
     -> cd dotfiles 
     -> ./install 
 
-13) install goodies
-    -> pacaur -S qt4 vlc visual-studio-code google-chrome steam wps-office pulseaudio pavucontrol rsync wine pinta tmux 
+15) install goodies
+    -> pacaur -S qt4 vlc visual-studio-code google-chrome steam wps-office pulseaudio pavucontrol rsync wine pinta tmux gparted youtube-dl
 
