@@ -1,0 +1,151 @@
+
+
+=======================
+ INITIAL INSTALLATION
+=======================
+
+-> INSTALL WINDOWS 10 FIRST!!
+-> boot into Arch USB/DVD using EUFI mode 
+
+1) check internet (ping), if don't works
+    -> check interface
+        -> ip addr
+        -> ip link set <interface> up
+
+    if ETHERNET Cable   -> ethernet shouldn't have any problem 
+    else WIFI           -> wifi-menu <interface>
+    
+2) create partition for ArchLinux
+    -> DONT TOUCH ORIGINAL partitions created by WINDOWS!
+    -> you can use 'gfdisk' (GPT) for this task 
+
+3) mount important partitions
+    -> check which EFI & root partition by either
+        -> fdisk -l 
+        -> lsblk
+    -> mkdir /mnt /mnt/boot
+    -> mount /dev/sdaX /mnt              (X = partition for install Arch)
+    -> mount /dev/sdaY /mnt/boot/efi     (Y = partition for EFI System Partition [ESP])
+
+4) install base ARCH data 
+    -> MAKE SURE INTERNET IS NOW WORKING!
+    -> pacstrap -i /mnt base base-devel grub-efi-x86_64
+
+5) generate File System Table file 
+    -> genfstab -pU /mnt >> /mnt/etc/fstab
+
+6) CHROOT into the new system 
+    -> arch-chroot /mnt /bin/bash
+
+7) choose time region
+    -> ln -sf /usr/share/zoneinfo/Asia/Kuala_Lumpur /etc/localtime
+    -> hwclock --systohc
+
+8) settings up locale 
+    -> edit /etc/locale.gen
+        -> vi /etc/locale.gen
+        -> uncomment the right locale & save 
+    -> echo 'LANG=en_US.UTF-8' >> /etc/locale.conf
+    -> echo 'LC_COLLATE="C' >> /etc/locale.conf
+    -> export LANG=en_US.UTF-8
+    -> locale-gen
+
+9) set up computer hostname 
+    -> echo archuser > /etc/hostname
+
+10) install network thingy
+    -> pacman -S iw wpa_supplicant wpa_actiond dialog
+
+11) set root password
+    -> passwd 
+
+12) install & configure GRUB with its related-files
+    -> pacman -S grub os-prober dosfstools efibootmgr
+    -> grub-install --recheck --debug
+    -> efibootmgr -v  (check EFI entries)
+    -> grub-mkconfig -o /boot/grub/grub.cfg
+
+13) exit CHROOT & reboot 
+    -> exit 
+    -> reboot
+
+
+===================
+ POST INSTALLATION
+===================
+
+1) no internet after initial Arch booting?
+    -> IF LAN:
+      -> ip addr  (check appropriate interface)
+      -> systemctl enable dhcpcd@<interface>.service
+      -> systemctl start dhcpcd@<interface>.service
+    -> IF WIFI
+      -> wifi-menu
+
+2) install bash-completion
+    -> pacman -S bash-completion
+
+3) create non-root user
+    -> CREATE USER
+      -> useradd -m -G wheel -s /bin/bash shahril
+      -> passwd shahril
+    -> ENABLE USERS INSIDE WHEEL GROUP TO USE SUDO
+      -> visudo
+      -> enable '%wheel ALL=(ALL) ALL'
+
+4) install network manager to automatically manage the network
+    -> pacman -S networkmanager
+    -> systemctl enable NetworkManager
+    -> systemctl start NetworkManager
+    -> reboot (must reboot or it wont function properly)
+
+5) install pacaur
+    -> PACAUR DEPENDS ON COWER
+      -> git clone https://aur.archlinux.org/cower.git
+      -> cd cower
+      -> makepkg -si --skippgpcheck
+    -> INSTALL PACAUR
+      -> git clone https://aur.archlinux.org/pacaur.git
+      -> cd pacaur
+      -> makepkg -si
+
+6) install Xorg & Gnome
+    -> pacaur -S xorg xorg-server xorg-apps gnome gnome-extra chrome-gnome-shell-git 
+    -> systemctl enable gdm  (enable initial login menu)
+    -> reboot
+
+7) enable multilib
+    -> vi /etc/pacman.conf, remove # (comment) untuk multilib
+        [multilib]
+        Include = /etc/pacman.d/mirrorlist
+    -> pacman -Syu
+
+8) install intel's microcode
+    -> pacman -S intel-ucode
+    -> REGENERATE GRUB.CONF FOR ENABLING MICROCODE ON BOOT-TIME
+        -> grub-mkconfig -o /boot/grub/grub.cfg
+
+9) install good-looking fonts
+    -> pacaur -S ttf-dejavu ttf-ms-fonts ttf-freefont freetype2 fontconfig
+    -> echo 'export FREETYPE_PROPERTIES="truetype:interpreter-version=38"' >> /etc/profile.d/freetype2.sh
+
+10) install virtualbox
+    -> pacman -S virtualbox virtualbox-guest-iso virtualbox-guest-utils
+    -> ADD <USER> INTO 'vboxusers' TO ENABLE USB ACCESS
+        -> gpasswd -a <user> vboxusers
+    -> INSTALL EXTENSION PACK FOR USB 3.0, ETC
+        -> pacaur -S virtualbox-ext-oracle
+
+11) install numix (awesome theme)
+    -> pacaur -S numix-icon-theme-git numix-gtk-theme-git
+    -> OPEN TWEAK-TOOL AND CHOOSE NUMIX
+
+12) install bumblebee + nvidia driver
+    -> pacman -S bumblebee nvidia lib32-virtualgl lib32-nvidia-utils mesa xf86-video-intel primus nvidia-settings opencl-nvidia lib32-primus
+    -> ADD USER TO BUMBLEBEE GROUP
+      -> gpasswd -a <user> bumblebee
+    -> reboot
+
+13) install goodies
+    -> pacaur -S qt4 vlc visual-studio-code google-chrome steam wps-office pulseaudio pavucontrol
+
