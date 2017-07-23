@@ -152,12 +152,26 @@
       -> gpasswd -a <user> bumblebee
     -> reboot
 
-14) install my .dotfiles!
+14) install sound
+    -> pacman -S pulseaudio pavucontrol lib32-libpulse lib32-alsa-plugins
+
+15) install printer support (YOU SHOULD REALLY INSTALL THIS)
+
+    -> sudo pacman -S cups cups-pdf
+    -> ADD CURRENT USER TO GROUP SYS & LP
+        -> sudo gpasswd --add <username> lp
+        -> sudo gpasswd --add <username> sys
+    -> sudo systemctl restart org.cups.cupsd.service
+    -> sudo pacman -S foomatic-db foomatic-db-engine foomatic-db-gutenprint-ppds foomatic-db-nonfree foomatic-db-nonfree-ppds foomatic-db-ppds gutenprint libusb
+    -> sudo systemctl restart org.cups.cupsd.service
+    -> GOTO http://localhost:631 AND ADD PRINTER YOURSELF
+
+16) install my .dotfiles!
     -> mkdir -p ~/git && cd ~/git 
     -> git clone https://github.com/shahril96/dotfiles.git
     -> cd dotfiles 
     -> ./install 
 
-15) install goodies
-    -> pacaur -S qt4 vlc visual-studio-code google-chrome steam wps-office pulseaudio pavucontrol rsync wine pinta tmux gparted youtube-dl
+17) install goodies
+    -> pacaur -S qt4 vlc visual-studio-code google-chrome steam wps-office rsync wine pinta tmux gparted youtube-dl aria2
 
