@@ -93,8 +93,8 @@
       -> visudo
       -> enable '%wheel ALL=(ALL) ALL'
 
-4) install network manager to automatically manage the network
-    -> pacman -S networkmanager
+4) install network manager to automatically manage the network (and some networking stuffs)
+    -> pacman -S networkmanager rp-pppoe
     -> systemctl enable NetworkManager
     -> systemctl start NetworkManager
     -> reboot (must reboot or it wont function properly)
@@ -173,5 +173,5 @@
     -> ./install 
 
 17) install goodies
-    -> pacaur -S qt4 vlc visual-studio-code google-chrome steam wps-office rsync wine pinta tmux gparted youtube-dl aria2
+    -> pacaur -S qt4 vlc visual-studio-code google-chrome steam wps-office rsync wine pinta tmux gparted youtube-dl aria2 
 
