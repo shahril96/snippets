@@ -82,10 +82,13 @@
     -> IF WIFI
       -> wifi-menu
 
-2) install bash-completion
+2) install git & tk 
+    -> pacman -S git tk
+
+3) install bash-completion
     -> pacman -S bash-completion
 
-3) create non-root user
+4) create non-root user
     -> CREATE USER
       -> useradd -m -G wheel -s /bin/bash shahril
       -> passwd shahril
@@ -93,13 +96,13 @@
       -> visudo
       -> enable '%wheel ALL=(ALL) ALL'
 
-4) install network manager to automatically manage the network (and some networking stuffs)
+5) install network manager to automatically manage the network (and some networking stuffs)
     -> pacman -S networkmanager rp-pppoe
     -> systemctl enable NetworkManager
     -> systemctl start NetworkManager
     -> reboot (must reboot or it wont function properly)
 
-5) install pacaur
+6) install pacaur
     -> PACAUR DEPENDS ON COWER
       -> git clone https://aur.archlinux.org/cower.git
       -> cd cower
@@ -109,53 +112,53 @@
       -> cd pacaur
       -> makepkg -si
 
-6) install Xorg & Gnome
-    -> pacaur -S xorg xorg-server xorg-apps gnome gnome-extra chrome-gnome-shell-git 
-    -> systemctl enable gdm  (enable initial login menu)
+7) install Xorg & Gnome
+    -> pacaur -S xorg xorg-xinit xorg-server xorg-apps gnome gnome-extra chrome-gnome-shell-git 
+    -> systemctl enable gdm  (enable initial login menu & automatic X11 startup)
     -> EDIT /etc/gdm/custom.conf AND UNCOMMENT 'WaylandEnable=false'
         -> REASON: some games work poorly with WAYLAND (for now)
     -> reboot
 
-7) enable multilib
+8) enable multilib
     -> vi /etc/pacman.conf, remove # (comment) untuk multilib
         [multilib]
         Include = /etc/pacman.d/mirrorlist
     -> pacman -Syu
 
-8) enable support for another File Systems
+9) enable support for another File Systems
     -> pacman -S ntfs-3g exfat-utils btrfs-progs 
 
-9) install intel's microcode
+10) install intel's microcode
     -> pacman -S intel-ucode
     -> REGENERATE GRUB.CONF FOR ENABLING MICROCODE ON BOOT-TIME
         -> grub-mkconfig -o /boot/grub/grub.cfg
 
-10) install good-looking fonts
+11) install good-looking fonts
     -> pacaur -S ttf-dejavu ttf-ms-fonts ttf-freefont freetype2 fontconfig
     -> echo 'export FREETYPE_PROPERTIES="truetype:interpreter-version=38"' >> /etc/profile.d/freetype2.sh
 
-11) install virtualbox
+12) install virtualbox
     -> pacman -S virtualbox virtualbox-guest-iso virtualbox-guest-utils
     -> ADD <USER> INTO 'vboxusers' TO ENABLE USB ACCESS
         -> gpasswd -a <user> vboxusers
     -> INSTALL EXTENSION PACK FOR USB 3.0, ETC
         -> pacaur -S virtualbox-ext-oracle
 
-12) install numix (awesome theme)
+13) install numix (awesome theme)
     -> pacaur -S numix-circle-icon-theme-git numix-gtk-theme-git
     -> OPEN TWEAK-TOOL AND CHOOSE NUMIX
 
-13) install bumblebee + nvidia driver
+14) install bumblebee + nvidia driver
     -> pacman -S bumblebee nvidia lib32-virtualgl lib32-nvidia-utils mesa xf86-video-intel primus nvidia-settings opencl-nvidia lib32-primus mesa-demos lib32-mesa-demos
     -> systemctl enable bumblebeed
     -> ADD USER TO BUMBLEBEE GROUP
       -> gpasswd -a <user> bumblebee
     -> reboot
 
-14) install sound
+15) install sound
     -> pacman -S pulseaudio pavucontrol lib32-libpulse lib32-alsa-plugins
 
-15) install printer support (YOU SHOULD REALLY INSTALL THIS)
+16) install printer support (YOU SHOULD REALLY INSTALL THIS)
 
     -> sudo pacman -S cups cups-pdf
     -> ADD CURRENT USER TO GROUP SYS & LP
@@ -166,12 +169,16 @@
     -> sudo systemctl restart org.cups.cupsd.service
     -> GOTO http://localhost:631 AND ADD PRINTER YOURSELF
 
-16) install my .dotfiles!
+17) install my .dotfiles!
     -> mkdir -p ~/git && cd ~/git 
     -> git clone https://github.com/shahril96/dotfiles.git
     -> cd dotfiles 
     -> ./install 
 
-17) install goodies
-    -> pacaur -S qt4 vlc visual-studio-code google-chrome steam wps-office rsync wine pinta tmux gparted youtube-dl aria2 neofetch
-
+18) install goodies
+    -> INSTALL VLC
+        -> pacman -S vlc --asdeps
+    -> INSTALL WINE
+        -> pacman -S wine-staging --asdeps
+    -> OTHER GOODIES
+        -> pacaur -S gvim visual-studio-code google-chrome steam wps-office rsync pinta tmux rhash gparted youtube-dl aria2 neofetch
