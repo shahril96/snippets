@@ -31,8 +31,8 @@ import re
 import random
 import string
 
-USERNAME = 'tmadmin'
-PASSWORD = 'tmadmin'
+USERNAME = 'admin'
+PASSWORD = 'admin'
 ADDRESS  = '192.168.1.1'
 
 
@@ -53,7 +53,7 @@ def release_all(macs):
     r = curr_sess.post('http://{}/index.html'.format(ADDRESS), data={'username': USERNAME, 'password': PASSWORD})
     curr_sess.get('http://{}/todmngr.tod?action=remove&rmLst={}&change=1'.format(ADDRESS, ''.join(['{}, '.format(e[0]) for e in macs])))
     if len(get_blocked_macs()) > 0:
-        print("Removing MACS failed! The mac addresses might still be there....")
+        print("Removing MACs failed! The mac addresses might still be there....")
 
 
 def get_wireless_clients():
@@ -72,10 +72,21 @@ def get_blocked_macs():
 
 
 def main():
+    
     blocked_macs = get_blocked_macs()
+
     if len(blocked_macs) > 0:
-        print("Releasing all blocked wireless mac addresses")
-        release_all(blocked_macs)
+
+        print("\nList of blocked wireless MACs:")
+        print('\n'.join([each for each in blocked_macs]))
+        inp = input("\nAre you sure you want to proceed? [y/n] : ")
+
+        if inp == 'y':
+            print("Releasing all blocked wireless mac addresses")
+            release_all(blocked_macs)
+        else:
+            print("Bad choice! :(")
+
     else:
 
         print("\nList of all wireless MACs:")
