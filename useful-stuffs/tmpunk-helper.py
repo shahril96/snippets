@@ -144,6 +144,8 @@ def main():
     # run the pppd
     print('Run pppd with default provider config.')
     print('Waiting for {} second(s) for pppd connection to up...'.format(PPPD_WAITTIMEOUT), end='')
+    sys.stdout.flush()
+    
     system('pon')
     
     # wait until the interface is up
@@ -156,7 +158,8 @@ def main():
     resolvconf('8.8.8.8')
 
     # get new interface data & set new route
-    interf = ipaddr(re.findall('Using interface (.*)', output)[0])
+    pppinterf = re.findall('Using interface (.*)', output)[0]
+    interf = ipaddr(pppinterf)
     system('ip route add default via {} dev {}'.format(interf['inet'], interf['interf']))
     
     print('\nNew route \'{}\' has been set!'.format(interf['inet']))
