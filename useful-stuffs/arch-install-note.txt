@@ -183,11 +183,12 @@
     -> pacman -S pulseaudio pavucontrol lib32-libpulse lib32-alsa-plugins
 
 16) install printer support (YOU SHOULD REALLY INSTALL THIS)
-    -> sudo pacman -S cups cups-pdf
+    -> sudo pacman -S cups cups-pdf simple-scan
     -> ADD CURRENT USER TO GROUP SYS & LP
         -> sudo gpasswd --add <username> lp
         -> sudo gpasswd --add <username> sys
-    -> sudo systemctl restart org.cups.cupsd.service
+    -> sudo systemctl enable org.cups.cupsd.service
+    -> sudo systemctl start org.cups.cupsd.service
     -> sudo pacman -S foomatic-db foomatic-db-engine foomatic-db-gutenprint-ppds foomatic-db-nonfree foomatic-db-nonfree-ppds foomatic-db-ppds gutenprint libusb
     -> sudo systemctl restart org.cups.cupsd.service
     -> GOTO http://localhost:631 AND ADD PRINTER YOURSELF
