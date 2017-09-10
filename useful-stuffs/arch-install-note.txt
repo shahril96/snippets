@@ -117,6 +117,8 @@
     -> systemctl enable gdm  (enable initial login menu & automatic X11 startup)
     -> EDIT /etc/gdm/custom.conf AND UNCOMMENT 'WaylandEnable=false'
         -> REASON: some games work poorly with WAYLAND (for now)
+    -> ENABLE MAGIC SYSRQ (CAN RECOVER FROM CRASH, EQ: ALT+SYSRQ+F)
+        -> echo "1" | sudo tee /etc/sysctl.d/99-sysctl.conf
     -> reboot
 
 8) enable multilib
