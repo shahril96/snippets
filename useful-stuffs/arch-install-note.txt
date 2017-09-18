@@ -7,7 +7,7 @@
 -> INSTALL WINDOWS 10 FIRST!!
 -> boot into Arch USB/DVD using EUFI mode 
 
-1) check internet (ping), if don't works
+1) check internet (ping), if doesn't work then
     -> check interface
         -> ip addr
         -> ip link set <interface> up
@@ -15,7 +15,7 @@
     if ETHERNET Cable   -> ethernet shouldn't have any problem 
     else WIFI           -> wifi-menu <interface>
     
-2) create partition for ArchLinux
+2) create partitions for ArchLinux
     -> DONT TOUCH ORIGINAL partitions created by WINDOWS!
     -> you can use 'gfdisk' (GPT) for this task 
 
@@ -41,7 +41,7 @@
     -> ln -sf /usr/share/zoneinfo/Asia/Kuala_Lumpur /etc/localtime
     -> hwclock --systohc
 
-8) settings up locale 
+8) settings up the locale 
     -> edit /etc/locale.gen
         -> vi /etc/locale.gen
         -> uncomment the right locale & save 
@@ -50,7 +50,7 @@
     -> export LANG=en_US.UTF-8
     -> locale-gen
 
-9) set up computer hostname 
+9) set computer hostname 
     -> echo archuser > /etc/hostname
 
 10) install network thingy
@@ -74,7 +74,7 @@
  POST INSTALLATION
 ===================
 
-1) no internet after initial Arch booting?
+1) if no internet after initial Arch booting?
     -> IF LAN:
       -> ip addr  (check appropriate interface)
       -> systemctl enable dhcpcd@<interface>.service
@@ -130,7 +130,7 @@
 9) enable support for another File Systems
     -> pacman -S ntfs-3g exfat-utils btrfs-progs 
 
-10) install intel's microcode
+10) install intel microcode
     -> pacman -S intel-ucode
     -> REGENERATE GRUB.CONF FOR ENABLING MICROCODE ON BOOT-TIME
         -> grub-mkconfig -o /boot/grub/grub.cfg
