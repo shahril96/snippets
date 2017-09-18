@@ -171,7 +171,7 @@
         -> pacaur -S virtualbox-ext-oracle
 
 13) install numix (awesome theme)
-    -> pacaur -S numix-circle-icon-theme-git numix-gtk-theme-git
+    -> pacaur -S numix-circle-icon-theme-git numix-gtk-theme-git numix-icon-theme-git numix-cursor-theme-git 
     -> OPEN TWEAK-TOOL AND CHOOSE NUMIX
 
 14) install bumblebee + nvidia driver
