@@ -17,7 +17,7 @@
     
 2) create partitions for ArchLinux
     -> DONT TOUCH ORIGINAL partitions created by WINDOWS!
-    -> you can use 'gfdisk' (GPT) for this task 
+    -> you can use 'cgdisk' (GPT) for this task 
 
 3) mount important partitions
     -> check which EFI & root partition by either
@@ -46,21 +46,65 @@
         -> vi /etc/locale.gen
         -> uncomment the right locale & save 
     -> echo 'LANG=en_US.UTF-8' >> /etc/locale.conf
-    -> echo 'LC_COLLATE="C' >> /etc/locale.conf
+    -> echo 'LC_COLLATE="C"' >> /etc/locale.conf
     -> export LANG=en_US.UTF-8
     -> locale-gen
+
+11) set root password
+    -> passwd 
 
 9) set computer hostname 
     -> echo archuser > /etc/hostname
 
 10) install network thingy
     -> pacman -S iw wpa_supplicant wpa_actiond dialog
+    -> pacman -S networkmanager rp-pppoe
+    -> systemctl enable NetworkManager
 
-11) set root password
-    -> passwd 
+2) install git & tk & vim
+    -> pacman -S git tk vim
+
+3) install bash-completion
+    -> pacman -S bash-completion
+
+4) create non-root user
+    -> CREATE USER
+      -> useradd -m -G wheel -s /bin/bash shahril
+      -> passwd shahril
+    -> ENABLE USERS INSIDE WHEEL GROUP TO USE SUDO
+      -> visudo
+      -> enable '%wheel ALL=(ALL) ALL'
+
+6) install pacaur
+    -> PACAUR DEPENDS ON COWER
+      -> git clone https://aur.archlinux.org/cower.git
+      -> cd cower
+      -> makepkg -si --skippgpcheck
+    -> INSTALL PACAUR
+      -> git clone https://aur.archlinux.org/pacaur.git
+      -> cd pacaur
+      -> makepkg -si
+
+8) enable multilib
+    -> vi /etc/pacman.conf, remove # (comment) untuk multilib
+        [multilib]
+        Include = /etc/pacman.d/mirrorlist
+    -> pacman -Syu
+
+9) enable support for another File Systems
+    -> pacman -S ntfs-3g exfat-utils btrfs-progs
+
+7) install Xorg & Gnome
+    -> pacaur -S xorg xorg-xinit xorg-server xorg-apps gdm
+    -> pacaur -S gnome gnome-extra chrome-gnome-shell-git 
+    -> systemctl enable gdm  (enable initial login menu & automatic X11 startup)
+    -> EDIT /etc/gdm/custom.conf AND UNCOMMENT 'WaylandEnable=false'
+        -> REASON: some games work poorly with WAYLAND (for now)
+    -> ENABLE MAGIC SYSRQ (CAN RECOVER FROM CRASH, EQ: ALT+SYSRQ+F)
+        -> echo "1" | sudo tee /etc/sysctl.d/99-sysctl.conf
 
 12) install & configure GRUB with its related-files
-    -> pacman -S grub os-prober dosfstools efibootmgr
+    -> pacman -S grub os-prober dosfstools efibootmgr intel-ucode
     -> grub-install --recheck --debug (install GRUB EFI image)
     -> efibootmgr -v  (check EFI entries)
     -> grub-mkconfig -o /boot/grub/grub.cfg (automatically create GRUB's config + OS detection)
@@ -81,59 +125,6 @@
       -> systemctl start dhcpcd@<interface>.service
     -> IF WIFI
       -> wifi-menu
-
-2) install git & tk 
-    -> pacman -S git tk
-
-3) install bash-completion
-    -> pacman -S bash-completion
-
-4) create non-root user
-    -> CREATE USER
-      -> useradd -m -G wheel -s /bin/bash shahril
-      -> passwd shahril
-    -> ENABLE USERS INSIDE WHEEL GROUP TO USE SUDO
-      -> visudo
-      -> enable '%wheel ALL=(ALL) ALL'
-
-5) install network manager to automatically manage the network (and some networking stuffs)
-    -> pacman -S networkmanager rp-pppoe
-    -> systemctl enable NetworkManager
-    -> systemctl start NetworkManager
-    -> reboot (must reboot or it wont function properly)
-
-6) install pacaur
-    -> PACAUR DEPENDS ON COWER
-      -> git clone https://aur.archlinux.org/cower.git
-      -> cd cower
-      -> makepkg -si --skippgpcheck
-    -> INSTALL PACAUR
-      -> git clone https://aur.archlinux.org/pacaur.git
-      -> cd pacaur
-      -> makepkg -si
-
-7) install Xorg & Gnome
-    -> pacaur -S xorg xorg-xinit xorg-server xorg-apps gnome gnome-extra chrome-gnome-shell-git 
-    -> systemctl enable gdm  (enable initial login menu & automatic X11 startup)
-    -> EDIT /etc/gdm/custom.conf AND UNCOMMENT 'WaylandEnable=false'
-        -> REASON: some games work poorly with WAYLAND (for now)
-    -> ENABLE MAGIC SYSRQ (CAN RECOVER FROM CRASH, EQ: ALT+SYSRQ+F)
-        -> echo "1" | sudo tee /etc/sysctl.d/99-sysctl.conf
-    -> reboot
-
-8) enable multilib
-    -> vi /etc/pacman.conf, remove # (comment) untuk multilib
-        [multilib]
-        Include = /etc/pacman.d/mirrorlist
-    -> pacman -Syu
-
-9) enable support for another File Systems
-    -> pacman -S ntfs-3g exfat-utils btrfs-progs 
-
-10) install intel microcode
-    -> pacman -S intel-ucode
-    -> REGENERATE GRUB.CONF FOR ENABLING MICROCODE ON BOOT-TIME
-        -> grub-mkconfig -o /boot/grub/grub.cfg
 
 11) install good-looking fonts
     -> pacaur -S ttf-dejavu ttf-liberation noto-fonts fontconfig 
@@ -202,6 +193,12 @@
     -> ./install 
 
 18) install goodies
+    -> GNOME EXTENSIONS
+	-> https://extensions.gnome.org/extension/1010/archlinux-updates-indicator/
+	-> https://extensions.gnome.org/extension/760/minimize-all/
+	-> https://extensions.gnome.org/extension/1064/system-monitor/
+	-> https://extensions.gnome.org/extension/55/media-player-indicator/
+	-> https://extensions.gnome.org/extension/1031/topicons/
     -> INSTALL VLC
         -> pacman -S vlc --asdeps
     -> INSTALL WINE
