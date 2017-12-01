@@ -127,32 +127,11 @@
       -> wifi-menu
 
 11) install good-looking fonts
-    -> pacaur -S ttf-dejavu ttf-liberation noto-fonts fontconfig 
-    -> sudo ln -s /etc/fonts/conf.avail/70-no-bitmaps.conf /etc/fonts/conf.d
+    -> pacaur -S ttf-dejavu noto-fonts adobe-source-han-sans-otc-fonts fontconfig 
     -> sudo ln -s /etc/fonts/conf.avail/10-sub-pixel-rgb.conf /etc/fonts/conf.d
     -> sudo ln -s /etc/fonts/conf.avail/11-lcdfilter-default.conf /etc/fonts/conf.d
-    -> sudo gedit /etc/fonts/local.conf 
-        -> PUT THE FOLLOWING CONFIG
-
-        <?xml version="1.0"?>
-        <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
-        <fontconfig>
-            <match>
-                <edit mode="prepend" name="family"><string>Noto Sans</string></edit>
-            </match>
-            <match target="pattern">
-                <test qual="any" name="family"><string>serif</string></test>
-                <edit name="family" mode="assign" binding="same"><string>Noto Serif</string></edit>
-            </match>
-            <match target="pattern">
-                <test qual="any" name="family"><string>sans-serif</string></test>
-                <edit name="family" mode="assign" binding="same"><string>Noto Sans</string></edit>
-            </match>
-            <match target="pattern">
-                <test qual="any" name="family"><string>monospace</string></test>
-                <edit name="family" mode="assign" binding="same"><string>Noto Mono</string></edit>
-            </match>
-        </fontconfig>
+    -> sudo wget https://gist.githubusercontent.com/cryzed/4f64bb79e80d619866ee0b18ba2d32fc/raw/bd073b52365393f9f0718425271825fc27b218f7/local.conf -O /etc/fonts/local.conf
+    -> echo "export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'" | sudo tee -a /etc/profile.d/jre.sh
 
 12) install virtualbox
     -> pacman -S virtualbox virtualbox-guest-iso virtualbox-guest-utils
