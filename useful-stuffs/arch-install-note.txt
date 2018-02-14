@@ -50,24 +50,24 @@
     -> export LANG=en_US.UTF-8
     -> locale-gen
 
-11) set root password
+9) set root password
     -> passwd 
 
-9) set computer hostname 
+10) set computer hostname 
     -> echo archuser > /etc/hostname
 
-10) install network thingy
+11) install network thingy
     -> pacman -S iw wpa_supplicant wpa_actiond dialog
     -> pacman -S networkmanager rp-pppoe
     -> systemctl enable NetworkManager
 
-2) install git & tk & vim
+12) install git & tk & vim
     -> pacman -S git tk vim
 
-3) install bash-completion
+13) install bash-completion
     -> pacman -S bash-completion
 
-4) create non-root user
+14) create non-root user
     -> CREATE USER
       -> useradd -m -G wheel -s /bin/bash shahril
       -> passwd shahril
@@ -75,7 +75,7 @@
       -> visudo
       -> enable '%wheel ALL=(ALL) ALL'
 
-6) install pacaur
+15) install pacaur
     -> PACAUR DEPENDS ON COWER
       -> git clone https://aur.archlinux.org/cower.git
       -> cd cower
@@ -85,16 +85,16 @@
       -> cd pacaur
       -> makepkg -si
 
-8) enable multilib
+16) enable multilib
     -> vi /etc/pacman.conf, remove # (comment) untuk multilib
         [multilib]
         Include = /etc/pacman.d/mirrorlist
     -> pacman -Syu
 
-9) enable support for another File Systems
+17) enable support for another File Systems
     -> pacman -S ntfs-3g exfat-utils btrfs-progs
 
-7) install Xorg & Gnome
+18) install Xorg & Gnome
     -> pacaur -S xorg xorg-xinit xorg-server xorg-apps gdm
     -> pacaur -S gnome gnome-extra chrome-gnome-shell-git 
     -> systemctl enable gdm  (enable initial login menu & automatic X11 startup)
@@ -103,16 +103,15 @@
     -> ENABLE MAGIC SYSRQ (CAN RECOVER FROM CRASH, EQ: ALT+SYSRQ+F)
         -> echo "1" | sudo tee /etc/sysctl.d/99-sysctl.conf
 
-12) install & configure GRUB with its related-files
+19) install & configure GRUB with its related-files
     -> pacman -S grub os-prober dosfstools efibootmgr intel-ucode
     -> grub-install --recheck --debug (install GRUB EFI image)
     -> efibootmgr -v  (check EFI entries)
     -> grub-mkconfig -o /boot/grub/grub.cfg (automatically create GRUB's config + OS detection)
 
-13) exit CHROOT & reboot 
+20) exit CHROOT & reboot 
     -> exit 
     -> reboot
-
 
 ===================
  POST INSTALLATION
@@ -126,52 +125,69 @@
     -> IF WIFI
       -> wifi-menu
 
-11) install good-looking fonts
+2) install good-looking fonts
     -> pacaur -S ttf-dejavu noto-fonts adobe-source-han-sans-otc-fonts fontconfig 
     -> sudo ln -s /etc/fonts/conf.avail/10-sub-pixel-rgb.conf /etc/fonts/conf.d
     -> sudo ln -s /etc/fonts/conf.avail/11-lcdfilter-default.conf /etc/fonts/conf.d
     -> sudo wget https://gist.githubusercontent.com/cryzed/4f64bb79e80d619866ee0b18ba2d32fc/raw/bd073b52365393f9f0718425271825fc27b218f7/local.conf -O /etc/fonts/local.conf
     -> echo "export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'" | sudo tee -a /etc/profile.d/jre.sh
 
-12) install virtualbox
+3) install virtualbox
     -> pacman -S virtualbox virtualbox-guest-iso virtualbox-guest-utils
     -> ADD <USER> INTO 'vboxusers' TO ENABLE USB ACCESS
         -> gpasswd -a <user> vboxusers
     -> INSTALL EXTENSION PACK FOR USB 3.0, ETC
         -> pacaur -S virtualbox-ext-oracle
 
-13) install numix (awesome theme)
+4) install numix (awesome theme)
     -> pacaur -S numix-circle-icon-theme-git numix-gtk-theme-git numix-icon-theme-git numix-cursor-theme-git 
     -> OPEN TWEAK-TOOL AND CHOOSE NUMIX
 
-14) install bumblebee + nvidia driver
+5) install TLP (Advanced Power Management for Linux)
+    -> sudo pacman -S tlp
+    -> sudo pacman -S acpi_call ethtool lsb-release smartmontools x86_energy_perf_policy # other goodies
+    -> MASK RFKILL TO AVOID INTERFERENCE
+        -> sudo systemctl mask systemd-rfkill.service
+        -> sudo systemctl mask systemd-rfkill.socket
+    -> DISABLE TLP POWER MANAGEMENT FOR BUMBLEBEE (NVIDIA-RELATED)
+        -> lspci | grep VGA  # find address of GPU (most probably 01:00.0)
+        -> EDIT `/etc/default/tlp`
+            -> RUNTIME_PM_BLACKLIST="01:00.0" # where 01:00.0 is GPU address
+    -> ENABLE TLP SERVICES
+        -> sudo systemctl enable tlp.service
+        -> sudo systemctl start tlp.service
+        -> sudo systemctl enable tlp-sleep.service
+        -> sudo systemctl start tlp-sleep.service
+
+6) install bumblebee + nvidia driver
     -> pacman -S bumblebee nvidia lib32-virtualgl lib32-nvidia-utils mesa xf86-video-intel primus nvidia-settings opencl-nvidia lib32-primus mesa-demos lib32-mesa-demos
     -> systemctl enable bumblebeed
     -> ADD USER TO BUMBLEBEE GROUP
       -> gpasswd -a <user> bumblebee
     -> reboot
 
-15) install sound
+7) install sound
     -> pacman -S pulseaudio pavucontrol lib32-libpulse lib32-alsa-plugins
 
-16) install printer support (YOU SHOULD REALLY INSTALL THIS)
+8) install printer support (YOU SHOULD REALLY INSTALL THIS)
     -> sudo pacman -S cups cups-pdf simple-scan
     -> ADD CURRENT USER TO GROUP SYS & LP
         -> sudo gpasswd --add <username> lp
         -> sudo gpasswd --add <username> sys
+    -> sudo chgrp -R cups /etc/cups
     -> sudo systemctl enable org.cups.cupsd.service
     -> sudo systemctl start org.cups.cupsd.service
     -> sudo pacman -S foomatic-db foomatic-db-engine foomatic-db-gutenprint-ppds foomatic-db-nonfree foomatic-db-nonfree-ppds foomatic-db-ppds gutenprint libusb
     -> sudo systemctl restart org.cups.cupsd.service
     -> GOTO http://localhost:631 AND ADD PRINTER YOURSELF
 
-17) install my .dotfiles!
+9) install my .dotfiles!
     -> mkdir -p ~/git && cd ~/git 
     -> git clone https://github.com/shahril96/dotfiles.git
     -> cd dotfiles 
     -> ./install 
 
-18) install goodies
+10) install goodies
     -> GNOME EXTENSIONS
 	-> https://extensions.gnome.org/extension/1010/archlinux-updates-indicator/
 	-> https://extensions.gnome.org/extension/760/minimize-all/
