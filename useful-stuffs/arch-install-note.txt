@@ -55,6 +55,7 @@
 
 10) set computer hostname 
     -> echo archuser > /etc/hostname
+    -> echo "127.0.0.1 localhost" | tee -a /etc/hosts
 
 11) install network thingy
     -> pacman -S iw wpa_supplicant wpa_actiond dialog
@@ -75,15 +76,11 @@
       -> visudo
       -> enable '%wheel ALL=(ALL) ALL'
 
-15) install pacaur
-    -> PACAUR DEPENDS ON COWER
-      -> git clone https://aur.archlinux.org/cower.git
-      -> cd cower
-      -> makepkg -si --skippgpcheck
-    -> INSTALL PACAUR
-      -> git clone https://aur.archlinux.org/pacaur.git
-      -> cd pacaur
-      -> makepkg -si
+15) install trizen (AUR HELPER)
+    -> git clone https://aur.archlinux.org/trizen.git
+    -> cd trizen
+    -> makepkg -si
+    -> cd .. & rm -rf trizen
 
 16) enable multilib
     -> vi /etc/pacman.conf, remove # (comment) untuk multilib
@@ -95,8 +92,8 @@
     -> pacman -S ntfs-3g exfat-utils btrfs-progs
 
 18) install Xorg & Gnome
-    -> pacaur -S xorg xorg-xinit xorg-server xorg-apps gdm
-    -> pacaur -S gnome gnome-extra chrome-gnome-shell-git 
+    -> trizen -S xorg xorg-xinit xorg-server xorg-apps gdm
+    -> trizen -S gnome gnome-extra chrome-gnome-shell-git 
     -> systemctl enable gdm  (enable initial login menu & automatic X11 startup)
     -> EDIT /etc/gdm/custom.conf AND UNCOMMENT 'WaylandEnable=false'
         -> REASON: some games work poorly with WAYLAND (for now)
@@ -126,7 +123,7 @@
       -> wifi-menu
 
 2) install good-looking fonts
-    -> pacaur -S ttf-dejavu noto-fonts adobe-source-han-sans-otc-fonts fontconfig 
+    -> trizen -S ttf-dejavu noto-fonts adobe-source-han-sans-otc-fonts fontconfig 
     -> sudo ln -s /etc/fonts/conf.avail/10-sub-pixel-rgb.conf /etc/fonts/conf.d
     -> sudo ln -s /etc/fonts/conf.avail/11-lcdfilter-default.conf /etc/fonts/conf.d
     -> sudo wget https://gist.githubusercontent.com/cryzed/4f64bb79e80d619866ee0b18ba2d32fc/raw/bd073b52365393f9f0718425271825fc27b218f7/local.conf -O /etc/fonts/local.conf
@@ -137,10 +134,10 @@
     -> ADD <USER> INTO 'vboxusers' TO ENABLE USB ACCESS
         -> gpasswd -a <user> vboxusers
     -> INSTALL EXTENSION PACK FOR USB 3.0, ETC
-        -> pacaur -S virtualbox-ext-oracle
+        -> trizen -S virtualbox-ext-oracle
 
 4) install numix (awesome theme)
-    -> pacaur -S numix-circle-icon-theme-git numix-gtk-theme-git numix-icon-theme-git numix-cursor-theme-git 
+    -> trizen -S numix-circle-icon-theme-git numix-gtk-theme-git numix-icon-theme-git numix-cursor-theme-git 
     -> OPEN TWEAK-TOOL AND CHOOSE NUMIX
 
 5) install TLP (Advanced Power Management for Linux)
@@ -153,6 +150,9 @@
         -> lspci | grep VGA  # find address of GPU (most probably 01:00.0)
         -> EDIT `/etc/default/tlp`
             -> RUNTIME_PM_BLACKLIST="01:00.0" # where 01:00.0 is GPU address
+    -> ENABLE WAKE-ON-LAN
+        -> EDIT `/etc/default/tlp`
+            -> WOL_DISABLE=N
     -> ENABLE TLP SERVICES
         -> sudo systemctl enable tlp.service
         -> sudo systemctl start tlp.service
@@ -199,4 +199,4 @@
     -> INSTALL WINE
         -> pacman -S wine-staging --asdeps
     -> OTHER GOODIES
-        -> pacaur -S gvim visual-studio-code google-chrome steam wps-office rsync pinta tmux rhash gparted youtube-dl aria2 neofetch lsof
+        -> trizen -S gvim visual-studio-code-bin google-chrome steam wps-office rsync pinta tmux rhash gparted youtube-dl aria2 neofetch lsof

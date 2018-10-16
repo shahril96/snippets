@@ -102,10 +102,10 @@ $ sudo pip2 install -U cuckoo
 Although the above, a global installation of Cuckoo in your OS works mostly fine, we highly recommend installing Cuckoo in a virtualenv, which looks roughly as follows:
 
 ```
-$ virtualenv venv
+$ virtualenv --python=$(which python2) venv
 $ . venv/bin/activate
-(venv) $ pip2 install -U pip setuptools
-(venv) $ pip2 install -U cuckoo
+(venv) $ pip install -U pip setuptools
+(venv) $ pip install -U cuckoo
 ```
 
 Some reasons for using a virtualenv:
