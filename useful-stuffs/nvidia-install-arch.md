@@ -1,6 +1,6 @@
 
 
-1) install nvidia driver from arch
+1) install nvidia driver from aur
 
 ```bash
 aurman -S nvidia-vulkan
