@@ -54,8 +54,8 @@ fi
 - special SDDM setup (such as Xsetup) isn't needed anymore
 
 ## REFERENCES
-https://github.com/Witko/nvidia-xrun 
-https://wiki.archlinux.org/index.php/nvidia-xrun 
-https://wiki.archlinux.org/index.php/NVIDIA_Optimus 
-http://www.cnblogs.com/tsreaper/p/arch-config.html 
-https://blog.isima-f5.fr/blog/sygems_nvidia-xrun
+* https://github.com/Witko/nvidia-xrun 
+* https://wiki.archlinux.org/index.php/nvidia-xrun 
+* https://wiki.archlinux.org/index.php/NVIDIA_Optimus 
+* http://www.cnblogs.com/tsreaper/p/arch-config.html 
+* https://blog.isima-f5.fr/blog/sygems_nvidia-xrun
