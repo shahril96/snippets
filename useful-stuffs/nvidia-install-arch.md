@@ -25,7 +25,7 @@ echo 'bbswitch ' | sudo tee /etc/modules-load.d/bbswitch.conf
 echo 'options bbswitch load_state=0 unload_state=1' | sudo tee /etc/modprobe.d/bbswitch.conf
 ```
 
-5) disable NVIDIA's module from loading on boot
+5) disable NVIDIA's modules from loading on boot
 
 ```bash
 $ cat /etc/modprobe.d/no-nvidia.conf
@@ -54,5 +54,8 @@ fi
 - special SDDM setup (such as Xsetup) isn't needed anymore
 
 ## REFERENCES
-http://www.cnblogs.com/tsreaper/p/arch-config.html
+https://github.com/Witko/nvidia-xrun 
+https://wiki.archlinux.org/index.php/nvidia-xrun 
+https://wiki.archlinux.org/index.php/NVIDIA_Optimus 
+http://www.cnblogs.com/tsreaper/p/arch-config.html 
 https://blog.isima-f5.fr/blog/sygems_nvidia-xrun
