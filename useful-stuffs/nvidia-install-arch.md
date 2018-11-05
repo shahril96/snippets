@@ -52,6 +52,9 @@ fi
 
 - don't need manual xorg.conf as we by default will start on Intel. Intel need no special configuration (unlike Nvidia, fuck you).
 - special SDDM setup (such as Xsetup) isn't needed anymore
+- If got "exec error" when running `nvidia-xrun`, most probably that you've updated your Kernel without rebuilding Nvidia's driver module back. This happen when you're using `nvidia-vulkan` package from AUR. To fix, simply follow these two commands:
+    - `$ rm -rf ~/.cache/aurman/nvidia-vulkan/*.xz  # remove old build cache`
+    - `$ aurman -S nvidia-vulkan  # reinstall (thus rebuild for existing kernel version)`
 
 ## REFERENCES
 * https://github.com/Witko/nvidia-xrun 
