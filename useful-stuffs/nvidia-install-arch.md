@@ -20,11 +20,20 @@ $ sudo pacman -S openbox
 
 #### 4) configure Openbox to be usable (**OPTIONAL!**)
 ```
-$ aurman -S tint2 obmenu-generator pcmanfm-qt
-$ echo "tint2 &" | tee ~/.config/openbox/autostart  # automatic show simple panel
-$ wget https://bit.ly/2FnyN8C -O ~/.config/openbox/menu.xml  # automatic generate menu + icons
-$ wget https://bit.ly/2zFCj8a -O ~/.config/tint2/tint2rc # very simple tint2 config
+$ aurman -S tint2 obmenu-generator pcmanfm-qt nitrogen compton
+
+$ echo "tint2 &" | tee -a ~/.config/openbox/autostart               # simple panel
+$ echo "nitrogen --restore &" | tee -a ~/.config/openbox/autostart  # wallpaper
+$ echo "compton &" | tee -a ~/.config/openbox/autostart             # compositor
+
+$ wget https://bit.ly/2FnyN8C -O ~/.config/openbox/menu.xml         # automatic generate menu + icons
+$ wget https://bit.ly/2zFCj8a -O ~/.config/tint2/tint2rc            # very simple tint2 config
 $ obmenu-generator # run once
+
+# apply wallpaper
+$ wget https://i.imgur.com/PI1zzXk.png -O ~/Pictures/openbox-wallpaper.png
+$ nitrogen ~/Pictures/
+
 ```
 
 - if want ctrl+alt+t Konsole shortcut, see this: https://askubuntu.com/questions/917382/how-to-run-commands-in-openbox
