@@ -18,7 +18,7 @@ $ aurman -S nvidia-xrun
 $ sudo pacman -S openbox 
 ```
 
-4) configure Openbox to be usable (OPTIONAL)
+4) configure Openbox to be usable (**OPTIONAL!**)
 ```
 $ aurman -S tint2 obmenu-generator pcmanfm-qt
 $ echo "tint2 &" | tee ~/.config/openbox/autostart  # automatic show simple panel
