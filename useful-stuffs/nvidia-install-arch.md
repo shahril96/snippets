@@ -38,8 +38,8 @@ $ obmenu-generator # run once
 5) turn off nvidia-card on boot (using bbswitch)
 
 ```bash
-echo 'bbswitch ' | sudo tee /etc/modules-load.d/bbswitch.conf
-echo 'options bbswitch load_state=0 unload_state=1' | sudo tee /etc/modprobe.d/bbswitch.conf
+$ echo 'bbswitch ' | sudo tee /etc/modules-load.d/bbswitch.conf
+$ echo 'options bbswitch load_state=0 unload_state=1' | sudo tee /etc/modprobe.d/bbswitch.conf
 ```
 
 6) disable NVIDIA's modules from loading on boot
