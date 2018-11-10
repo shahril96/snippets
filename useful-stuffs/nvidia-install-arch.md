@@ -27,10 +27,10 @@ $ wget https://bit.ly/2zFCj8a -O ~/.config/tint2/tint2rc # very simple tint2 con
 $ obmenu-generator # run once
 ```
 
-- 1) if want ctrl+alt+t Konsole shortcut, see this: https://askubuntu.com/questions/917382/how-to-run-commands-in-openbox
+- if want ctrl+alt+t Konsole shortcut, see this: https://askubuntu.com/questions/917382/how-to-run-commands-in-openbox
      - tips: use C-A-t as its key, `Konsole` as its command
 
-- 2) edit obmenu-generator's config for specifying correct program to run at menu
+- edit obmenu-generator's config for specifying correct program to run at menu
      - edit both of these file
         - ~/.config/obmenu-generator/config.pl  (advise: use `pcmanfm-qt` as your file manager)
         - ~/.config/obmenu-generator/schema.pl
