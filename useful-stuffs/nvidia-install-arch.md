@@ -1,24 +1,24 @@
 
 
-1) install nvidia driver from aur
+#### 1) install nvidia driver from aur
 
 ```bash
 $ aurman -S nvidia-vulkan
 ```
 
-2) install nvidia-xrun (will install bbswitch also -- to switch on/off nvidia card easily)
+#### 2) install nvidia-xrun (will install bbswitch also -- to switch on/off nvidia card easily)
 
 ```bash
 $ aurman -S nvidia-xrun
 ```
 
-3) install another DE
+#### 3) install another DE
 
 ```bash
 $ sudo pacman -S openbox 
 ```
 
-4) configure Openbox to be usable (**OPTIONAL!**)
+#### 4) configure Openbox to be usable (**OPTIONAL!**)
 ```
 $ aurman -S tint2 obmenu-generator pcmanfm-qt
 $ echo "tint2 &" | tee ~/.config/openbox/autostart  # automatic show simple panel
@@ -35,14 +35,14 @@ $ obmenu-generator # run once
         - ~/.config/obmenu-generator/config.pl  (advise: use `pcmanfm-qt` as your file manager)
         - ~/.config/obmenu-generator/schema.pl
 
-5) turn off nvidia-card on boot (using bbswitch)
+#### 5) turn off nvidia-card on boot (using bbswitch)
 
 ```bash
 $ echo 'bbswitch ' | sudo tee /etc/modules-load.d/bbswitch.conf
 $ echo 'options bbswitch load_state=0 unload_state=1' | sudo tee /etc/modprobe.d/bbswitch.conf
 ```
 
-6) disable NVIDIA's modules from loading on boot
+#### 6) disable NVIDIA's modules from loading on boot
 
 ```bash
 $ cat /etc/modprobe.d/no-nvidia.conf
@@ -52,7 +52,7 @@ blacklist nvidia_drm
 blacklist nouveau
 ```
 
-7) auto-start openbox when running `nvidia-xrun`
+#### 7) auto-start openbox when running `nvidia-xrun`
 
 ```bash
 $ cat ~/.nvidia-xinitrc
@@ -65,7 +65,7 @@ else
 fi
 ```
 
-8) NOTES
+#### 8) NOTES
 
 - don't need manual xorg.conf as we by default will start on Intel. Intel need no special configuration (unlike Nvidia, fuck you).
 - special SDDM setup (such as Xsetup) isn't needed anymore
