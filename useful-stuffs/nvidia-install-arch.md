@@ -15,7 +15,10 @@ aurman -S nvidia-xrun
 3) install another DE
 
 ```bash
-sudo pacman -S openbox
+aurman -S openbox tint2 obmenu-generator
+echo "tint2 &" | tee ~/.config/openbox/autostart  # automatic show simple panel
+wget https://bit.ly/2FnyN8C -O ~/.config/openbox/menu.xml  # automatic generate menu + icons
+wget https://bit.ly/2zFCj8a -O ~/.config/tint2/tint2rc # very simple tint2 config
 ```
 
 4) turn off nvidia-card on boot (using bbswitch)
