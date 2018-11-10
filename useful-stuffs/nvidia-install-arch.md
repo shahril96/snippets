@@ -3,37 +3,37 @@
 1) install nvidia driver from aur
 
 ```bash
-aurman -S nvidia-vulkan
+$ aurman -S nvidia-vulkan
 ```
 
 2) install nvidia-xrun (will install bbswitch also -- to switch on/off nvidia card easily)
 
 ```bash
-aurman -S nvidia-xrun
+$ aurman -S nvidia-xrun
 ```
 
 3) install another DE
 
 ```bash
-sudo pacman -S openbox 
+$ sudo pacman -S openbox 
 ```
 
 4) configure Openbox to be usable (OPTIONAL)
 ```
-aurman -S tint2 obmenu-generator geany
-echo "tint2 &" | tee ~/.config/openbox/autostart  # automatic show simple panel
-wget https://bit.ly/2FnyN8C -O ~/.config/openbox/menu.xml  # automatic generate menu + icons
-wget https://bit.ly/2zFCj8a -O ~/.config/tint2/tint2rc # very simple tint2 config
-obmenu-generator # run once
+$ aurman -S tint2 obmenu-generator pcmanfm-qt
+$ echo "tint2 &" | tee ~/.config/openbox/autostart  # automatic show simple panel
+$ wget https://bit.ly/2FnyN8C -O ~/.config/openbox/menu.xml  # automatic generate menu + icons
+$ wget https://bit.ly/2zFCj8a -O ~/.config/tint2/tint2rc # very simple tint2 config
+$ obmenu-generator # run once
+```
 
-# 1) if want ctrl+alt+t Konsole shortcut, see this: https://askubuntu.com/questions/917382/how-to-run-commands-in-openbox
+- 1) if want ctrl+alt+t Konsole shortcut, see this: https://askubuntu.com/questions/917382/how-to-run-commands-in-openbox
      - tips: use C-A-t as its key, `Konsole` as its command
-     
-# 2) edit obmenu-generator's config for specifying correct program to run at menu
+
+- 2) edit obmenu-generator's config for specifying correct program to run at menu
      - edit both of these file
         - ~/.config/obmenu-generator/config.pl  (advise: use `pcmanfm-qt` as your file manager)
         - ~/.config/obmenu-generator/schema.pl
-```
 
 5) turn off nvidia-card on boot (using bbswitch)
 
