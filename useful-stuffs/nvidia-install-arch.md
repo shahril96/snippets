@@ -30,9 +30,8 @@ $ wget https://bit.ly/2FnyN8C -O ~/.config/openbox/menu.xml         # automatic 
 $ wget https://bit.ly/2zFCj8a -O ~/.config/tint2/tint2rc            # very simple tint2 config
 $ obmenu-generator # run once
 
-# apply wallpaper
-$ wget https://i.imgur.com/PI1zzXk.png -O ~/Pictures/openbox-wallpaper.png
-$ nitrogen ~/Pictures/
+$ wget https://i.imgur.com/PI1zzXk.png -O ~/Pictures/openbox.png
+$ nitrogen ~/Pictures/                                             # apply wallpaper
 
 ```
 
@@ -42,7 +41,7 @@ $ nitrogen ~/Pictures/
 - edit obmenu-generator's config for specifying correct program to run at menu
      - edit both of these file
         - ~/.config/obmenu-generator/config.pl  (advise: use `pcmanfm-qt` as your file manager)
-        - ~/.config/obmenu-generator/schema.pl
+        - ~/.config/obmenu-generator/schema.pl (advise: use `kate` instead of `geany` as default text editor)
 
 #### 5) turn off nvidia-card on boot (using bbswitch)
 
