@@ -3,7 +3,7 @@
 #### 1) install nvidia driver from aur
 
 ```bash
-$ aurman -S nvidia-vulkan opencl-nvidia-vulkan lib32-nvidia-vulkan-utils lib32-opencl-nvidia-vulkan nvidia-vulkan-utils
+$ aurman -S nvidia-vulkan opencl-nvidia-vulkan lib32-opencl-nvidia-vulkan nvidia-vulkan-utils lib32-nvidia-vulkan-utils
 ```
 
 #### 2) install nvidia-xrun (will install bbswitch also -- to switch on/off nvidia card easily)
