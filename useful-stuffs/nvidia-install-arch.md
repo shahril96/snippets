@@ -30,7 +30,7 @@ $ wget https://bit.ly/2FnyN8C -O ~/.config/openbox/menu.xml         # automatic 
 $ wget https://bit.ly/2zFCj8a -O ~/.config/tint2/tint2rc            # very simple tint2 config
 $ obmenu-generator # run once
 
-$ wget https://i.imgur.com/PI1zzXk.png -O ~/Pictures/openbox.png
+$ wget https://i.imgur.com/6NoM2aL.png -O ~/Pictures/openbox-wallpaper.png
 $ nitrogen ~/Pictures/                                             # apply wallpaper
 
 ```
