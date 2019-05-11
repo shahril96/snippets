@@ -3,13 +3,13 @@
 #### 1) install nvidia driver from aur
 
 ```bash
-$ aurman -S nvidia-vulkan opencl-nvidia-vulkan lib32-opencl-nvidia-vulkan nvidia-vulkan-utils lib32-nvidia-vulkan-utils
+$ yay -S nvidia-vulkan opencl-nvidia-vulkan lib32-opencl-nvidia-vulkan nvidia-vulkan-utils lib32-nvidia-vulkan-utils
 ```
 
 #### 2) install nvidia-xrun (will install bbswitch also -- to switch on/off nvidia card easily)
 
 ```bash
-$ aurman -S nvidia-xrun
+$ yay -S nvidia-xrun
 ```
 
 #### 3) install another DE
@@ -20,7 +20,7 @@ $ sudo pacman -S openbox
 
 #### 4) configure Openbox to be usable (**OPTIONAL!**)
 ```
-$ aurman -S tint2 obmenu-generator pcmanfm-qt nitrogen compton
+$ yay -S tint2 obmenu-generator pcmanfm-qt nitrogen compton
 
 $ echo "tint2 &" | tee -a ~/.config/openbox/autostart               # simple panel
 $ echo "nitrogen --restore &" | tee -a ~/.config/openbox/autostart  # wallpaper
@@ -78,8 +78,8 @@ fi
 - don't need manual xorg.conf as we by default will start on Intel. Intel need no special configuration (unlike Nvidia, fuck you).
 - special SDDM setup (such as Xsetup) isn't needed anymore
 - If got "exec error" when running `nvidia-xrun`, most probably that you've updated your Kernel without rebuilding Nvidia's driver module back. This happen when you're using `nvidia-vulkan` package from AUR. To fix, simply follow these two commands:
-    - `$ rm -rf ~/.cache/aurman/nvidia-vulkan/*.xz  # remove old build cache`
-    - `$ aurman -S nvidia-vulkan  # reinstall (thus rebuild for existing kernel version)`
+    - `$ rm -rf ~/.cache/yay/nvidia-vulkan/*.xz  # remove old build cache`
+    - `$ yay -S nvidia-vulkan  # reinstall (thus rebuild for existing kernel version)`
 
 ## REFERENCES
 * https://github.com/Witko/nvidia-xrun 
